@@ -27,7 +27,9 @@ export default {
   },
   methods:{
     titleClick(index){
-        this.currentIndex = index
+        this.currentIndex = index;
+        //将事件发送给父组件
+        this.$emit('titleClick',index)
     },
     backClick(){
       this.$router.back()

@@ -38,10 +38,12 @@ import TabControl from 'components/content/maintabbar/tabcontrol/TabControl'
 import GoodsList from 'components/content/goods/GoodsList'
 import Scroll from 'components/common/scroll/Scroll'
 import BackTop from 'components/content/backtop/BackTop'
+import { itemListenerMixin } from 'common/mixin'
 import { debounce } from 'common/util.js'
 
 export default {
   name:'Home',
+  mixins:[itemListenerMixin],
   data(){
   return{
     banners:[],
@@ -72,6 +74,8 @@ export default {
   //记录离开页面时滚动的位置
   deactivated(){
     this.saveY = this.$refs.scroll.getScrollY();
+    //取消全局事件的监听
+    this.$bus.$off('loadImg',this.itemImageListener)
    
   },
   components:{
@@ -92,7 +96,7 @@ export default {
   
   },
   mounted(){
-  this.loadImg();
+    
   },
   methods:{
     getHomeMultidata(){
@@ -133,7 +137,9 @@ export default {
        //如果滚动区域到达1000就显示回到顶部图标
       this.isShowBackTop = (- position.y ) > 1000;
       //tabcontrol附在顶部
+      
       this.isTabFixed = (- position.y) > this.tabOffsetTop + 44;
+      // console.log(this.isTabFixed,position,this.tabOffsetTop)
       },
      loadMore(){
        this.getHomeGoods(this.currentType);
@@ -141,18 +147,8 @@ export default {
         this.$refs.scroll.refresh()
      },
     //  监听图片加载
-     loadImg(){
-       const refresh = debounce(this.$refs.scroll.refresh)
-       this.$bus.$on('loadImg',()=>{
-         console.log(this.$refs.scroll.scroll.scrollerHeight)
-         console.log(this)
-          refresh()
-       })
-     },
     swiperImageLoad(){
-        // console.log(this.$refs.TabControl2)
        this.tabOffsetTop =  this.$refs.TabControl2.$el.offsetTop
-      //  console.log(this.tabOffsetTop)
     }
 
   }

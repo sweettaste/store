@@ -2,7 +2,9 @@
    <div class="param-info" v-if="Object.keys(goodsParams).length">
     <table v-for="(table, index) in goodsParams.sizes"
            class="info-size" :key="index">
+           
       <tr v-for="(tr, indey) in table" :key="indey" class="info-tr">
+        <!-- {{tr}} -->
         <td v-for="(td, indez) in tr" :key="indez" >{{td}}</td>
       </tr>
     </table>
@@ -32,6 +34,7 @@ export default {
 </script>
 <style scoped>
 .param-info{
+  width: 100vw;
   padding: 15px 15px;
   font-size: 14px;
   border-bottom: 5px solid #f2f5f8;
@@ -45,11 +48,12 @@ export default {
   line-height: 43px;
 }
 .param-info table tr td{
+  /* background: #eb4868; */
   border-bottom: 1px solid rgba(0,0,0,.1);
   /* text-align: center; */
 }
 .info-param-key{
-  width: 95px;
+  width: 20%;
   overflow: hidden;
   /* background: pink; */
 }
@@ -57,6 +61,7 @@ export default {
     border-top: 1px solid rgba(0,0,0,.1);
   }
   .param-value {
+    width: 80%;
     color: #eb4868;
     overflow: hidden;
     text-overflow: ellipsis;

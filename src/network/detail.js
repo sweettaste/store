@@ -7,6 +7,14 @@ export function getDetail(iid){
     }
   })
 }
+
+//获取推荐信息
+export function getRecommend(){
+  return request({
+    url:'/recommend'
+  })
+}
+
 //商品信息
 export class Goods{
   constructor(itemInfo,columns,services){

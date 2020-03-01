@@ -1,5 +1,5 @@
 <template>
-  <div> me</div>
+  <div> {{$store.state}}</div>
 </template>
 <script>
 export default {
